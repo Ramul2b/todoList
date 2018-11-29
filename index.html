@@ -1,0 +1,45 @@
+<DOCTYPE html>
+
+<html>
+    <head>
+        <title>TO-DO List</title>
+        <meta charset = "utf-8">  
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+        <script src="todoList.controller.js"></script>
+        <script src="app.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body ng-app="todoList" ng-controller="todoController">
+        
+        <h1>TODO APP</h1>
+        
+        <form class="field" ng-submit="addTodo()">
+            <textarea class="cell description" type="text" placeholder="Описание" ng-model="newTask"></textarea>
+            <select class="cell" ng-model="performancer">
+                <option selected disabled>Исполнитель</option>
+                <option>Performancer A</option>
+                <option>Performancer B</option>
+                <option>Performancer C</option>
+            </select> 
+            <input class="cell" type="text" placeholder="Приоритет" ng-model="prioritet">  
+            
+            <button class="cell botton" type="submit">Добавить задачу</button>
+        </form>
+        
+        <br> 
+        
+        <div ng-repeat="task in taskList | orderBy:'-number'" class="field newTask">
+            <div class="description">
+                <span class="cell">Задача: {{task.description}};</span>
+                <span class="cell">Исполнитель: {{task.human}};</span>
+                <span class="cell">Приоритет: {{task.number}};</span>
+            </div>
+            
+            <button class="botton cell" ng-click="deleteTodo($index)">Удалить</button>
+            <button ng-hide="isPrioritetUp(task)" class="botton cell" ng-click="prioritetUp(task)">Повысить приоритет</button>
+            <button ng-hide="isPrioritetDown(task)" class="botton cell" ng-click="prioritetDown(task)">Понизить приоритет</button>
+        </div>
+        
+    </body>
+    
+</html>
